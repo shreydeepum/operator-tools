@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+publish.sh
+record_demo.py
+*/demo.mp4
+*/demo.gif
+*/demo-plan.md
+*/linkedin-post.md

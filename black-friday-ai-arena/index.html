@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Black Friday AI Arena — E-Commerce Margin Stress-Test by Shrey Deepum</title>
+  <meta name="description" content="Roughly 1 in 5 holiday shoppers now ask an AI bot what to buy before opening a website. Drag the slider to stress-test your store's profit across USD, EUR, GBP, INR, and AED." />
+  <meta name="author" content="Shrey Deepum" />
+  <meta name="robots" content="index, follow, max-snippet:-1" />
+  <link rel="canonical" href="https://shreydeepum.github.io/operator-tools/black-friday-ai-arena/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Black Friday AI Arena — Shrey Deepum" />
+  <meta property="og:description" content="Test what happens to your holiday weekend profit when shoppers ask AI bots instead of clicking your ads." />
+  <meta property="og:url" content="https://shreydeepum.github.io/operator-tools/black-friday-ai-arena/" />
+  <meta property="og:image" content="https://shreydeepum.github.io/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Black Friday AI Arena — Shrey Deepum" />
+  <meta name="twitter:description" content="Interactive holiday e-commerce stress-test for AI shopping assistants by Shrey Deepum." />
+  <meta name="twitter:image" content="https://shreydeepum.github.io/og-card.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "The Black Friday AI Arena",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://shreydeepum.github.io/operator-tools/black-friday-ai-arena/",
+    "codeRepository": "https://github.com/shreydeepum/operator-tools",
+    "description": "Interactive e-commerce stress-test modeling how AI shopping assistants shift holiday retail conversion, paid search CAC, and net margin across USD, EUR, GBP, INR, and AED.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://shreydeepum.github.io/#person",
+      "name": "Shrey Deepum",
+      "url": "https://shreydeepum.github.io/"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #FAF7F2;
+      --paper-deep: #F2EDE4;
+      --card: #FFFFFF;
+      --ink: #161513;
+      --ink-soft: #3D3A35;
+      --ink-muted: #6A645B;
+      --rule: #E4DDD2;
+      --rule-dark: #C8BFB0;
+      --vermilion: #C8402C;
+      --vermilion-soft: #FDF1EE;
+      --vermilion-deep: #9E2616;
+      --forest: #1A6B4A;
+      --forest-soft: #ECF6F1;
+      --brass: #B07212;
+      --brass-soft: #FCF5E8;
+      --slate: #948E84;
+      --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.48;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Editorial Masthead */
+    header {
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .monogram {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      border-bottom: 3px solid var(--vermilion);
+      flex-shrink: 0;
+    }
+
+    .brand-handle {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-dot {
+      color: var(--ink-muted);
+      margin: 0 2px;
+    }
+
+    .masthead-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .drop-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .currency-bar {
+      display: inline-flex;
+      border: 1px solid var(--rule-dark);
+      background: var(--card);
+    }
+
+    .curr-btn {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 8px;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .curr-btn + .curr-btn {
+      border-left: 1px solid var(--rule);
+    }
+
+    .curr-btn:hover {
+      color: var(--ink);
+      background: var(--paper-deep);
+    }
+
+    .curr-btn.active {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .vibe-bar {
+      display: inline-flex;
+      border: 1px solid var(--vermilion);
+      background: var(--vermilion-soft);
+    }
+
+    .vibe-btn {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--vermilion-deep);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 9px;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .vibe-btn + .vibe-btn {
+      border-left: 1px solid #E8B8AE;
+    }
+
+    .vibe-btn:hover {
+      background: #F9E0DA;
+    }
+
+    .vibe-btn.active {
+      background: var(--vermilion);
+      color: #FFF;
+    }
+
+    .stamp-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .stamp-ref {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .hub-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-dark);
+      padding-bottom: 1px;
+    }
+
+    .hub-link:hover {
+      color: var(--vermilion);
+      border-color: var(--vermilion);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 18px 0 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .kicker {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--vermilion);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 4.4vw, 46px);
+      font-weight: 600;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15.5px;
+      color: var(--ink-soft);
+      max-width: 650px;
+    }
+
+    .presets-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .presets-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-right: 4px;
+    }
+
+    .preset-btn {
+      appearance: none;
+      border: 1px solid var(--rule-dark);
+      background: var(--card);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--ink);
+      background: var(--paper-deep);
+    }
+
+    .preset-btn.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+
+    /* Main Workspace Grid */
+    .workspace {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 20px;
+      padding: 16px 0 32px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--rule);
+    }
+
+    .panel-head {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .panel-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .reset-link {
+      appearance: none;
+      border: none;
+      background: transparent;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .reset-link:hover {
+      color: var(--vermilion);
+    }
+
+    .panel-body {
+      padding: 18px 20px 20px;
+    }
+
+    /* Controls */
+    .control {
+      margin-bottom: 18px;
+    }
+
+    .control:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .control label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .control-val {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .control-hint {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+    }
+
+    /* Crisp Tactile Range Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--paper-deep);
+      border: 1px solid var(--rule-dark);
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      background: var(--ink);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--ink);
+      cursor: pointer;
+      transition: transform 0.1s ease, background 0.12s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      background: var(--vermilion);
+      box-shadow: 0 0 0 1px var(--vermilion);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 0;
+      background: var(--ink);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--ink);
+      cursor: pointer;
+    }
+
+    /* Hero Slider inside Arena */
+    .hero-slider-box {
+      padding: 18px 22px 20px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-slider-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hero-slider-label {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .hero-slider-num {
+      font-family: var(--mono);
+      font-size: 28px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--vermilion);
+      line-height: 1;
+    }
+
+    .hero-range {
+      height: 10px !important;
+      background: linear-gradient(to right, #E8E1D5 0%, #F5D4CE 60%, #E7A79B 100%) !important;
+    }
+
+    .hero-range::-webkit-slider-thumb {
+      width: 24px !important;
+      height: 24px !important;
+      background: var(--vermilion) !important;
+      box-shadow: 0 0 0 1px var(--vermilion-deep) !important;
+    }
+
+    .hero-range::-moz-range-thumb {
+      width: 24px !important;
+      height: 24px !important;
+      background: var(--vermilion) !important;
+      box-shadow: 0 0 0 1px var(--vermilion-deep) !important;
+    }
+
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 7px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    .tick-highlight {
+      color: var(--vermilion);
+      font-weight: 600;
+    }
+
+    /* Bot Readiness Segmented Control */
+    .seg-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--rule-dark);
+      margin-top: 6px;
+    }
+
+    .seg-btn {
+      appearance: none;
+      border: none;
+      background: var(--paper);
+      padding: 9px 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.12s ease;
+    }
+
+    .seg-btn + .seg-btn {
+      border-left: 1px solid var(--rule-dark);
+    }
+
+    .seg-btn strong {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .seg-btn span {
+      display: block;
+      font-size: 10.5px;
+      color: var(--ink-muted);
+      margin-top: 2px;
+      line-height: 1.25;
+    }
+
+    .seg-btn:hover {
+      background: var(--paper-deep);
+    }
+
+    .seg-btn.active {
+      background: var(--ink);
+    }
+
+    .seg-btn.active strong {
+      color: var(--paper);
+    }
+
+    .seg-btn.active span {
+      color: #C7C0B5;
+    }
+
+    /* Panic Discount Row */
+    .discount-box {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .disc-pills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .disc-btn {
+      appearance: none;
+      border: 1px solid var(--rule-dark);
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 4px;
+      cursor: pointer;
+    }
+
+    .disc-btn:hover {
+      border-color: var(--ink);
+    }
+
+    .disc-btn.active {
+      background: var(--vermilion);
+      border-color: var(--vermilion);
+      color: #FFF;
+    }
+
+    .disc-btn[data-disc="0"].active {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* Arena Stage */
+    .arena-stage {
+      padding: 20px 22px 22px;
+    }
+
+    /* Verdict Banner */
+    .verdict-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--rule);
+      flex-wrap: wrap;
+    }
+
+    .verdict-copy {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .verdict-kicker {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 4px;
+    }
+
+    .verdict-line {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1.28;
+      color: var(--ink);
+    }
+
+    .stamp {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border: 2.5px solid currentColor;
+      transform: rotate(-2deg);
+      white-space: nowrap;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), color 0.15s, background 0.15s;
+    }
+
+    .stamp.pop {
+      transform: rotate(-2deg) scale(1.07);
+    }
+
+    .stamp.victor {
+      color: var(--forest);
+      background: var(--forest-soft);
+    }
+
+    .stamp.bruised {
+      color: var(--brass);
+      background: var(--brass-soft);
+    }
+
+    .stamp.tribute {
+      color: var(--vermilion);
+      background: var(--vermilion-soft);
+    }
+
+    .stamp.cannon {
+      color: #FFF;
+      background: var(--vermilion-deep);
+      border-color: var(--vermilion-deep);
+    }
+
+    /* 3 Big Numbers */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .metric-card {
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      padding: 14px 14px 13px;
+    }
+
+    .metric-card.primary {
+      background: var(--card);
+      border-color: var(--ink);
+      border-top: 3px solid var(--ink);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-family: var(--mono);
+      font-size: clamp(20px, 2.3vw, 26px);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .metric-value.good { color: var(--forest); }
+    .metric-value.bad { color: var(--vermilion); }
+
+    .metric-sub {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .strike {
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    /* 100-Shopper Arena Grid */
+    .crowd-box {
+      border: 1px solid var(--rule);
+      padding: 15px 16px;
+      background: var(--card);
+    }
+
+    .crowd-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .crowd-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .crowd-bonus {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--forest);
+      background: var(--forest-soft);
+      padding: 2px 8px;
+      display: none;
+    }
+
+    .crowd-bonus.show {
+      display: inline-block;
+    }
+
+    .crowd-grid {
+      display: grid;
+      grid-template-columns: repeat(25, 1fr);
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .dot {
+      aspect-ratio: 1;
+      border-radius: 2px;
+      transition: background-color 0.2s ease, transform 0.18s ease;
+    }
+
+    .dot.direct { background: #262421; }
+    .dot.paid { background: #A7A095; }
+    .dot.bot-won { background: var(--forest); }
+    .dot.bot-lost { background: var(--vermilion); }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .leg-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .leg-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Panic Discount Alert */
+    .trap-alert {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--vermilion);
+      background: var(--vermilion-soft);
+      font-size: 13px;
+      color: var(--ink);
+      display: none;
+    }
+
+    .trap-alert.show {
+      display: block;
+    }
+
+    .trap-alert strong {
+      color: var(--vermilion-deep);
+    }
+
+    /* Fix It Before Friday */
+    .fixes-section {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .fixes-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .fixes-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .rescued-pill {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--forest);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .fixes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .fix-card {
+      border: 1px solid var(--rule-dark);
+      background: var(--paper);
+      padding: 12px 12px 11px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.14s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .fix-card:hover {
+      border-color: var(--ink);
+    }
+
+    .fix-card.active {
+      background: var(--forest-soft);
+      border-color: var(--forest);
+    }
+
+    .fix-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .fix-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .fix-check {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--ink-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: transparent;
+      flex-shrink: 0;
+      background: var(--card);
+    }
+
+    .fix-card.active .fix-check {
+      background: var(--forest);
+      border-color: var(--forest);
+      color: #FFF;
+    }
+
+    .fix-desc {
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      line-height: 1.35;
+    }
+
+    /* Action Bar */
+    .actions-bar {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      appearance: none;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 11px 16px;
+      cursor: pointer;
+      transition: background 0.14s, border-color 0.14s;
+    }
+
+    .btn-primary:hover {
+      background: var(--vermilion);
+      border-color: var(--vermilion);
+    }
+
+    .btn-secondary {
+      appearance: none;
+      border: 1px solid var(--rule-dark);
+      background: var(--card);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 11px 16px;
+      cursor: pointer;
+      transition: border-color 0.14s, background 0.14s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink);
+      background: var(--paper-deep);
+    }
+
+    .share-note {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    /* Math Footnote */
+    .footnote-wrap {
+      padding: 0 0 48px;
+    }
+
+    details.math-notes {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 0;
+    }
+
+    details.math-notes summary {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    details.math-notes summary::-webkit-details-marker { display: none; }
+
+    details.math-notes summary::after {
+      content: '+';
+      font-size: 16px;
+      color: var(--ink-muted);
+    }
+
+    details.math-notes[open] summary::after {
+      content: '-';
+    }
+
+    .math-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px 28px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .math-grid strong {
+      color: var(--ink);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 20px 0 32px;
+      font-size: 12.5px;
+      color: var(--ink-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-dark);
+    }
+
+    footer a:hover {
+      color: var(--vermilion);
+      border-color: var(--vermilion);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+      .arena-panel {
+        order: -1;
+      }
+      .fixes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+      .crowd-grid {
+        grid-template-columns: repeat(10, 1fr);
+        gap: 4px;
+      }
+      .math-grid {
+        grid-template-columns: 1fr;
+      }
+      .drop-tag {
+        display: none;
+      }
+      .hero-slider-num {
+        font-size: 24px;
+      }
+      .btn-group {
+        width: 100%;
+      }
+      .btn-primary, .btn-secondary {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap masthead">
+      <a class="brand" href="https://www.linkedin.com/in/shreydeepum" target="_blank" rel="noopener">
+        <span class="monogram">SD</span>
+        <span class="brand-handle">shreydeepum</span>
+      </a>
+      <div class="masthead-right">
+        <span class="drop-tag">Drop 01 · Nov 2026</span>
+        <div class="vibe-bar" role="group" aria-label="Pop-Culture Vibe">
+          <button class="vibe-btn active" data-vibe="hollywood">Hollywood</button>
+          <button class="vibe-btn" data-vibe="bollywood">Bollywood</button>
+        </div>
+        <div class="currency-bar" role="group" aria-label="Currency">
+          <button class="curr-btn active" data-curr="USD">USD $</button>
+          <button class="curr-btn" data-curr="EUR">EUR €</button>
+          <button class="curr-btn" data-curr="GBP">GBP £</button>
+          <button class="curr-btn" data-curr="INR">INR ₹</button>
+          <button class="curr-btn" data-curr="AED">AED</button>
+        </div>
+        <a class="hub-link" href="../">All Tools</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <div>
+          <div class="kicker">Holiday Stress-Test · Interactive Simulator</div>
+          <h1>The Black Friday AI Arena</h1>
+          <p class="subtitle">
+            Roughly 1 in 5 holiday shoppers now ask an AI bot what to buy before they ever open a website. Drag the slider and see if your store survives the weekend.
+          </p>
+        </div>
+      </div>
+
+      <div class="presets-row">
+        <span class="presets-label">Try a store:</span>
+        <button class="preset-btn active" data-preset="skincare">D2C Skincare Brand</button>
+        <button class="preset-btn" data-preset="sneakers">Sneaker &amp; Apparel Store</button>
+        <button class="preset-btn" data-preset="luxury">Luxury Retail Brand</button>
+        <button class="preset-btn" data-preset="electronics">Consumer Electronics</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap workspace">
+    <!-- Left Column: Store Inputs -->
+    <section class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Your Store Setup</span>
+        <button class="reset-link" id="resetBtn" type="button">Reset preset</button>
+      </div>
+      <div class="panel-body">
+        <div class="control">
+          <div class="control-top">
+            <label for="salesSlider">Expected holiday weekend sales</label>
+            <span class="control-val" id="salesOut">$250K</span>
+          </div>
+          <input type="range" id="salesSlider" min="50" max="2000" step="25" value="250" />
+          <div class="control-hint">Black Friday through Cyber Monday target</div>
+        </div>
+
+        <div class="control">
+          <div class="control-top">
+            <label for="aovSlider">Average order value</label>
+            <span class="control-val" id="aovOut">$75</span>
+          </div>
+          <input type="range" id="aovSlider" min="25" max="600" step="5" value="75" />
+        </div>
+
+        <div class="control">
+          <div class="control-top">
+            <label for="marginSlider">Profit kept per order (before ads)</label>
+            <span class="control-val" id="marginOut">58%</span>
+          </div>
+          <input type="range" id="marginSlider" min="18" max="80" step="1" value="58" />
+          <div class="control-hint">After product cost, shipping, and payment fees</div>
+        </div>
+
+        <div class="control">
+          <div class="control-top">
+            <label for="adSlider">Weekend sales spent on paid ads</label>
+            <span class="control-val" id="adOut">22%</span>
+          </div>
+          <input type="range" id="adSlider" min="5" max="40" step="1" value="22" />
+          <div class="control-hint">Search, social, and shopping ad budget</div>
+        </div>
+
+        <div class="control">
+          <div class="control-top">
+            <label>Can an AI bot read your prices &amp; reviews?</label>
+          </div>
+          <div class="seg-group" id="readinessGroup" role="group" aria-label="AI Bot Readiness">
+            <button type="button" class="seg-btn" data-level="blind">
+              <strong>Blind</strong>
+              <span>Messy feed, thin reviews</span>
+            </button>
+            <button type="button" class="seg-btn active" data-level="half">
+              <strong>Half-Ready</strong>
+              <span>Clean site, mixed reviews</span>
+            </button>
+            <button type="button" class="seg-btn" data-level="ready">
+              <strong>Bot-Ready</strong>
+              <span>Live stock, top reviews</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="discount-box">
+          <div class="control-top" style="margin-bottom: 2px;">
+            <label>What if you panic-discount to win buyers back?</label>
+          </div>
+          <div class="control-hint" style="margin-top: 0;">Watch what extra discounting does to actual cash kept</div>
+          <div class="disc-pills" id="discGroup">
+            <button type="button" class="disc-btn active" data-disc="0">No extra cut</button>
+            <button type="button" class="disc-btn" data-disc="10">-10% off</button>
+            <button type="button" class="disc-btn" data-disc="20">-20% off</button>
+            <button type="button" class="disc-btn" data-disc="30">-30% off</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: The Arena -->
+    <section class="panel arena-panel">
+      <div class="hero-slider-box">
+        <div class="hero-slider-head">
+          <label for="aiShareSlider" class="hero-slider-label">
+            Shoppers asking AI bots instead of clicking your ads
+          </label>
+          <span class="hero-slider-num" id="aiShareOut">20%</span>
+        </div>
+        <input type="range" class="hero-range" id="aiShareSlider" min="0" max="45" step="1" value="20" />
+        <div class="slider-ticks">
+          <span>0% (Old playbook)</span>
+          <span class="tick-highlight">▲ 20% (2026 holiday forecast)</span>
+          <span>45% (Bot takeover)</span>
+        </div>
+      </div>
+
+      <div class="arena-stage">
+        <!-- Verdict Header -->
+        <div class="verdict-row">
+          <div class="verdict-copy">
+            <div class="verdict-kicker" id="verdictKicker">Arena Verdict · Hollywood Mode</div>
+            <div class="verdict-line" id="verdictLine">
+              You're leaking gift shoppers to rivals and paying more for the clicks left over.
+            </div>
+          </div>
+          <div class="stamp-wrap">
+            <div class="stamp bruised" id="verdictStamp">BRUISED</div>
+            <span class="stamp-ref" id="stampRef">The Hunger Games</span>
+          </div>
+        </div>
+
+        <!-- 3 Big Numbers -->
+        <div class="metrics-grid">
+          <div class="metric-card primary">
+            <div class="metric-label">Cash actually left in the bank</div>
+            <div class="metric-value" id="netCashOut">$74.2K</div>
+            <div class="metric-sub">
+              Planned: <span class="strike" id="planCashOut">$90.0K</span>
+              (<span id="cashDeltaPct">-18%</span>)
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Sales won or lost vs. plan</div>
+            <div class="metric-value bad" id="salesDeltaOut">-$14.6K</div>
+            <div class="metric-sub" id="ordersDeltaOut">-195 orders</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Orders needed to stay even</div>
+            <div class="metric-value" id="breakevenOut">+16%</div>
+            <div class="metric-sub" id="breakevenSub">To recover lost weekend cash</div>
+          </div>
+        </div>
+
+        <!-- 100-Shopper Arena Visual -->
+        <div class="crowd-box">
+          <div class="crowd-head">
+            <span class="crowd-title">Out of every 100 weekend shoppers in your category:</span>
+            <span class="crowd-bonus" id="crowdBonus">+4 extra buyers stolen from slower rivals</span>
+          </div>
+          <div class="crowd-grid" id="crowdGrid" aria-label="100 shopper visual breakdown"></div>
+          <div class="legend">
+            <span class="leg-item"><span class="leg-swatch" style="background:#262421"></span>Direct &amp; repeat: <strong id="legDirect">35</strong></span>
+            <span class="leg-item"><span class="leg-swatch" style="background:#A7A095"></span>Clicked your ads: <strong id="legPaid">45</strong></span>
+            <span class="leg-item"><span class="leg-swatch" style="background:#1A6B4A"></span>Bot picked you: <strong id="legWon">11</strong></span>
+            <span class="leg-item"><span class="leg-swatch" style="background:#C8402C"></span>Bot sent to rival: <strong id="legLost">9</strong></span>
+          </div>
+        </div>
+
+        <!-- Panic Discount Reality Check -->
+        <div class="trap-alert" id="trapAlert"></div>
+
+        <!-- 3 Fix-It Switches -->
+        <div class="fixes-section">
+          <div class="fixes-head">
+            <span class="fixes-title">Fix It Before Friday (tap to test)</span>
+            <span class="rescued-pill" id="rescuedPill">Tap a lever to see cash rescued</span>
+          </div>
+          <div class="fixes-grid">
+            <button type="button" class="fix-card" data-fix="feed">
+              <div class="fix-top">
+                <span class="fix-name">Clean live prices, stock &amp; reviews</span>
+                <span class="fix-check">✓</span>
+              </div>
+              <span class="fix-desc">Helps AI shopping bots trust and recommend your catalog.</span>
+            </button>
+
+            <button type="button" class="fix-card" data-fix="mix">
+              <div class="fix-top">
+                <span class="fix-name">Shift 20% of ads to email &amp; retail media</span>
+                <span class="fix-check">✓</span>
+              </div>
+              <span class="fix-desc">Stops you overbidding on shrinking paid-search clicks.</span>
+            </button>
+
+            <button type="button" class="fix-card" data-fix="bundle">
+              <div class="fix-top">
+                <span class="fix-name">Bundle a gift instead of cutting prices</span>
+                <span class="fix-check">✓</span>
+              </div>
+              <span class="fix-desc">Lifts average basket size +12% without torching margin.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Share & Export -->
+        <div class="actions-bar">
+          <div class="btn-group">
+            <button type="button" class="btn-primary" id="downloadPngBtn">Save Snapshot Card (PNG)</button>
+            <button type="button" class="btn-secondary" id="copySummaryBtn">Copy 3-Line Summary</button>
+          </div>
+          <span class="share-note" id="actionFeedback">Drop the card straight into Slack, WhatsApp, or LinkedIn.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="wrap footnote-wrap">
+    <details class="math-notes">
+      <summary>How the numbers work (plain-English assumptions)</summary>
+      <div class="math-grid">
+        <div>
+          <strong>1. Unbranded AI shopping prompts</strong>
+          Public 2026 holiday retail forecasts put AI-influenced e-commerce near ~20%, with over 60% of shopping prompts naming no brand upfront. The model treats 65% of bot-assisted shoppers as up for grabs.
+        </div>
+        <div>
+          <strong>2. How bot readiness changes your share</strong>
+          Stores with messy pricing/stock ("Blind") capture ~25% of bot-driven buyers. "Half-Ready" stores capture ~65%. "Bot-Ready" stores capture 115% (stealing unbranded gift shoppers from slower rivals).
+        </div>
+        <div>
+          <strong>3. Shrinking click pool = pricier ad auctions</strong>
+          As shoppers move from search links to AI answers, the remaining ad clicks get more competitive (modeled as +0.35% effective ad-cost squeeze per 1% AI shift, reduced when you shift spend to owned lists &amp; retail media).
+        </div>
+        <div>
+          <strong>4. The panic-discount trap</strong>
+          Extra price cuts come straight out of profit kept per order. The break-even volume jump uses exact margin math: <code>discount / (margin - discount)</code>. At 40% margin, a 20% price cut forces +100% more orders just to break even.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>
+        Built by <a href="https://shreydeepum.github.io/"><strong>Shrey Deepum</strong></a> · Drop 01 of interactive commercial tools. Runs 100% locally in your browser.
+      </span>
+      <span>
+        <a href="https://shreydeepum.github.io/">Home</a>
+        &nbsp;·&nbsp;
+        <a href="https://shreydeepum.github.io/writing/ai-shopping-agents-ecommerce-margin/">Read Playbook</a>
+        &nbsp;·&nbsp;
+        <a href="../">All Tools</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/shreydeepum" target="_blank" rel="noopener">LinkedIn</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- Hidden canvas for 1-click PNG Snapshot Card -->
+  <canvas id="cardCanvas" width="1200" height="675" style="display:none;"></canvas>
+
+  <script>
+    (function () {
+      const CURRENCIES = {
+        USD: { symbol: '$', rate: 1, prefix: true },
+        EUR: { symbol: '€', rate: 0.92, prefix: true },
+        GBP: { symbol: '£', rate: 0.79, prefix: true },
+        INR: { symbol: '₹', rate: 85, prefix: true, indian: true },
+        AED: { symbol: 'AED ', rate: 3.67, prefix: true }
+      };
+
+      const PRESETS = {
+        skincare: {
+          name: 'D2C Skincare Brand',
+          salesK: 250,
+          aov: 75,
+          margin: 58,
+          adPct: 22,
+          readiness: 'half',
+          aiShare: 20,
+          panicDisc: 0
+        },
+        sneakers: {
+          name: 'Sneaker & Apparel Store',
+          salesK: 450,
+          aov: 125,
+          margin: 44,
+          adPct: 20,
+          readiness: 'blind',
+          aiShare: 22,
+          panicDisc: 0
+        },
+        luxury: {
+          name: 'Luxury Retail Brand',
+          salesK: 800,
+          aov: 420,
+          margin: 62,
+          adPct: 14,
+          readiness: 'blind',
+          aiShare: 18,
+          panicDisc: 0
+        },
+        electronics: {
+          name: 'Consumer Electronics',
+          salesK: 600,
+          aov: 290,
+          margin: 28,
+          adPct: 12,
+          readiness: 'half',
+          aiShare: 25,
+          panicDisc: 0
+        }
+      };
+
+      const VIBES = {
+        hollywood: {
+          label: 'Hollywood Mode',
+          victor: {
+            stamp: 'VICTOR',
+            ref: 'The Hunger Games',
+            lineBonus: 'May the bots be ever in your favor. You steal extra gift buyers without paying for the click.',
+            lineClean: 'May the bots be ever in your favor. Your weekend holds up cleanly and margins stay intact.'
+          },
+          bruised: {
+            stamp: 'BRUISED',
+            ref: 'The Hunger Games',
+            line: "You're leaking gift shoppers to rivals and paying more for the clicks left over."
+          },
+          tribute: {
+            stamp: 'VOLUNTEERED AS TRIBUTE',
+            ref: 'The Hunger Games',
+            line: 'Shoppers asked the AI bot for a gift. It recommended your competitor instead.'
+          },
+          cannon: {
+            stamp: 'CANNON FIRED',
+            ref: 'The Hunger Games',
+            lineDisc: 'Lost bot traffic plus panic discounting just wiped out your weekend profit.',
+            lineBase: 'Between invisible product feeds and rising ad costs, this weekend bleeds cash.'
+          }
+        },
+        bollywood: {
+          label: 'Bollywood Mode',
+          victor: {
+            stamp: 'PAISA HI PAISA HOGA',
+            ref: 'Phir Hera Pheri',
+            lineBonus: 'Bots are sending free buyers straight to your checkout. Zero extra ad spend, pure profit.',
+            lineClean: 'Clean feeds, strong margins, zero panic discounts. Your CFO is sleeping peacefully tonight.'
+          },
+          bruised: {
+            stamp: 'ALL IS WELL... MAYBE',
+            ref: '3 Idiots',
+            line: 'Top-line sales still look okay on a slide, but shrinking ad clicks are quietly eating your profit.'
+          },
+          tribute: {
+            stamp: 'YEH SAB DOGLAPAN HAI',
+            ref: 'Shark Tank India',
+            line: 'Spending heavily on weekend ads while AI bots hand your gift shoppers straight to a rival.'
+          },
+          cannon: {
+            stamp: 'KHATAM. TATA. BYE-BYE.',
+            ref: 'Indian Pop Culture',
+            lineDisc: 'Put the coupon code down. Panic discounting just wiped out your entire weekend margin.',
+            lineBase: 'Invisible feeds plus pricey ad auctions just torched the weekend profit. Fix the catalog first.'
+          }
+        }
+      };
+
+      const state = {
+        curr: 'USD',
+        vibe: 'hollywood',
+        presetKey: 'skincare',
+        salesK: 250,
+        aov: 75,
+        margin: 58,
+        adPct: 22,
+        readiness: 'half',
+        aiShare: 20,
+        panicDisc: 0,
+        fixes: { feed: false, mix: false, bundle: false },
+        lastTier: 'bruised',
+        lastVibe: 'hollywood'
+      };
+
+      // DOM refs
+      const els = {
+        salesSlider: document.getElementById('salesSlider'),
+        aovSlider: document.getElementById('aovSlider'),
+        marginSlider: document.getElementById('marginSlider'),
+        adSlider: document.getElementById('adSlider'),
+        aiShareSlider: document.getElementById('aiShareSlider'),
+        salesOut: document.getElementById('salesOut'),
+        aovOut: document.getElementById('aovOut'),
+        marginOut: document.getElementById('marginOut'),
+        adOut: document.getElementById('adOut'),
+        aiShareOut: document.getElementById('aiShareOut'),
+        verdictKicker: document.getElementById('verdictKicker'),
+        verdictStamp: document.getElementById('verdictStamp'),
+        stampRef: document.getElementById('stampRef'),
+        verdictLine: document.getElementById('verdictLine'),
+        netCashOut: document.getElementById('netCashOut'),
+        planCashOut: document.getElementById('planCashOut'),
+        cashDeltaPct: document.getElementById('cashDeltaPct'),
+        salesDeltaOut: document.getElementById('salesDeltaOut'),
+        ordersDeltaOut: document.getElementById('ordersDeltaOut'),
+        breakevenOut: document.getElementById('breakevenOut'),
+        breakevenSub: document.getElementById('breakevenSub'),
+        crowdGrid: document.getElementById('crowdGrid'),
+        crowdBonus: document.getElementById('crowdBonus'),
+        legDirect: document.getElementById('legDirect'),
+        legPaid: document.getElementById('legPaid'),
+        legWon: document.getElementById('legWon'),
+        legLost: document.getElementById('legLost'),
+        trapAlert: document.getElementById('trapAlert'),
+        rescuedPill: document.getElementById('rescuedPill'),
+        actionFeedback: document.getElementById('actionFeedback'),
+        cardCanvas: document.getElementById('cardCanvas')
+      };
+
+      // Build 100 shopper cells once
+      const dots = [];
+      for (let i = 0; i < 100; i++) {
+        const d = document.createElement('div');
+        d.className = 'dot direct';
+        els.crowdGrid.appendChild(d);
+        dots.push(d);
+      }
+
+      // Format money cleanly for any currency
+      function fmtMoney(usdAmount, signed = false) {
+        const c = CURRENCIES[state.curr];
+        const sign = usdAmount < 0 ? '-' : (signed && usdAmount > 0 ? '+' : '');
+        const val = Math.abs(usdAmount) * c.rate;
+
+        if (c.indian) {
+          if (val >= 10000000) return `${sign}${c.symbol}${(val / 10000000).toFixed(2)}Cr`;
+          if (val >= 100000) return `${sign}${c.symbol}${(val / 100000).toFixed(1)}L`;
+          if (val >= 1000) return `${sign}${c.symbol}${Math.round(val).toLocaleString('en-IN')}`;
+          return `${sign}${c.symbol}${Math.round(val)}`;
+        }
+
+        if (val >= 1000000) return `${sign}${c.symbol}${(val / 1000000).toFixed(2)}M`;
+        if (val >= 10000) return `${sign}${c.symbol}${(val / 1000).toFixed(1)}K`;
+        if (val >= 1000) return `${sign}${c.symbol}${(val / 1000).toFixed(2)}K`;
+        return `${sign}${c.symbol}${Math.round(val).toLocaleString('en-US')}`;
+      }
+
+      function fmtAov(usdVal) {
+        const c = CURRENCIES[state.curr];
+        const val = Math.round(usdVal * c.rate);
+        const formatted = c.indian ? val.toLocaleString('en-IN') : val.toLocaleString('en-US');
+        return `${c.symbol}${formatted}`;
+      }
+
+      // Core transparent unit-economics model
+      function simulate(overrides = {}) {
+        const s = Object.assign({}, state, overrides);
+        const fixes = overrides.fixes || state.fixes;
+
+        const baseSales = s.salesK * 1000;
+        const baseOrders = baseSales / s.aov;
+        const baseMarginRate = s.margin / 100;
+        const baseAdRate = s.adPct / 100;
+        const baseProfit = baseSales * (baseMarginRate - baseAdRate);
+
+        const aiShare = s.aiShare / 100;
+        const unbrandedFactor = 0.65; // ~65% of AI shopping queries don't specify a brand
+
+        // Bot capture rate by readiness + optional "Clean live feeds" fix
+        let captureRate = s.readiness === 'blind' ? 0.25 : (s.readiness === 'half' ? 0.65 : 1.15);
+        if (fixes.feed) {
+          captureRate = Math.min(1.22, captureRate + (s.readiness === 'blind' ? 0.65 : s.readiness === 'half' ? 0.45 : 0.08));
+        }
+
+        // Branded bot shoppers stick with you (~92%); unbranded ones are decided by captureRate
+        const botTotalShare = aiShare;
+        const botContestShare = botTotalShare * unbrandedFactor;
+        const botLoyalShare = botTotalShare * (1 - unbrandedFactor);
+
+        const botRetainedFraction = (botLoyalShare * 0.94) + (botContestShare * captureRate);
+        const netOrderMultiplierFromBots = (1 - botTotalShare) + botRetainedFraction;
+
+        // Panic discount: brings modest short-term order bump (+0.45% orders per 1% cut) at huge margin cost
+        const disc = s.panicDisc / 100;
+        const discVolumeLift = 1 + (disc * 0.45);
+
+        // Bundle fix: lifts AOV +12% and improves effective margin by +2pp without cutting price
+        const effectiveAov = fixes.bundle ? s.aov * 1.12 : s.aov;
+        const effectivePriceRatio = 1 - disc;
+        const finalAov = effectiveAov * effectivePriceRatio;
+
+        const newOrders = baseOrders * netOrderMultiplierFromBots * discVolumeLift;
+        const newSales = newOrders * finalAov;
+
+        // Unit COGS stays fixed per order (discount comes purely out of your margin!)
+        const unitCogs = effectiveAov * (1 - (baseMarginRate + (fixes.bundle ? 0.02 : 0)));
+        const grossProfitPerOrder = finalAov - unitCogs;
+        const totalGrossProfit = newOrders * grossProfitPerOrder;
+
+        // Paid ad auction squeeze: remaining paid clicks get pricier as AI siphons traffic
+        const auctionSqueeze = 1 + (aiShare * (fixes.mix ? 0.14 : 0.40));
+        const mixEfficiency = fixes.mix ? 0.86 : 1.0;
+        // Bot-won shoppers don't cost a paid click, so ad spend scales mostly with non-bot traffic
+        const paidShareFactor = Math.max(0.55, 1 - (aiShare * 0.45));
+        const newAdSpend = baseSales * baseAdRate * paidShareFactor * auctionSqueeze * mixEfficiency;
+
+        const newNetCash = totalGrossProfit - newAdSpend;
+        const cashDelta = newNetCash - baseProfit;
+        const cashDeltaPct = baseProfit > 0 ? (cashDelta / baseProfit) * 100 : 0;
+        const salesDelta = newSales - baseSales;
+        const ordersDelta = Math.round(newOrders - baseOrders);
+
+        // Extra orders needed to recover lost profit (or break even on panic discount)
+        let extraOrdersNeededPct = 0;
+        if (cashDelta < 0) {
+          if (grossProfitPerOrder <= 0) {
+            extraOrdersNeededPct = 999;
+          } else {
+            const missingDollars = Math.abs(cashDelta);
+            const extraOrders = missingDollars / grossProfitPerOrder;
+            extraOrdersNeededPct = (extraOrders / Math.max(1, newOrders)) * 100;
+          }
+        }
+
+        // Pure textbook discount breakeven for the callout box
+        const pureDiscBreakevenPct = disc > 0
+          ? (baseMarginRate > disc ? (disc / (baseMarginRate - disc)) * 100 : 999)
+          : 0;
+
+        // 100-shopper visual breakdown
+        const directBase = Math.round(Math.max(18, Math.min(48, 52 - s.adPct * 0.85)));
+        const botCount = Math.round(aiShare * 100);
+        const paidCount = Math.max(0, 100 - directBase - botCount);
+
+        const rawWon = Math.round(botRetainedFraction * 100);
+        const botWon = Math.min(botCount, rawWon);
+        const botLost = Math.max(0, botCount - botWon);
+        const stolenBonus = Math.max(0, rawWon - botCount);
+
+        // Verdict tier + pop-culture copy (Hollywood or Bollywood)
+        const v = VIBES[s.vibe] || VIBES.hollywood;
+        let tier = 'bruised';
+        if (newNetCash <= 0 || cashDeltaPct <= -45) {
+          tier = 'cannon';
+        } else if (cashDeltaPct <= -18 || botLost >= 9) {
+          tier = 'tribute';
+        } else if (cashDeltaPct >= -2) {
+          tier = 'victor';
+        }
+
+        const spec = v[tier];
+        const stampText = spec.stamp;
+        const stampRef = spec.ref;
+        let verdictLine = spec.line || '';
+        if (tier === 'victor') {
+          verdictLine = stolenBonus > 0 ? spec.lineBonus : spec.lineClean;
+        } else if (tier === 'cannon') {
+          verdictLine = s.panicDisc > 0 ? spec.lineDisc : spec.lineBase;
+        }
+
+        return {
+          baseSales,
+          baseProfit,
+          newSales,
+          newNetCash,
+          cashDelta,
+          cashDeltaPct,
+          salesDelta,
+          ordersDelta,
+          extraOrdersNeededPct,
+          pureDiscBreakevenPct,
+          directBase,
+          paidCount,
+          botWon,
+          botLost,
+          stolenBonus,
+          tier,
+          stampText,
+          stampRef,
+          verdictLine
+        };
+      }
+
+      function render() {
+        const res = simulate();
+        const baselineNoFix = simulate({ fixes: { feed: false, mix: false, bundle: false } });
+        const rescuedCash = res.newNetCash - baselineNoFix.newNetCash;
+
+        // Input readouts
+        els.salesOut.textContent = fmtMoney(state.salesK * 1000);
+        els.aovOut.textContent = fmtAov(state.aov);
+        els.marginOut.textContent = `${state.margin}%`;
+        els.adOut.textContent = `${state.adPct}%`;
+        els.aiShareOut.textContent = `${state.aiShare}%`;
+
+        // Verdict stamp + pop animation when tier or vibe flips
+        els.verdictKicker.textContent = `Arena Verdict · ${VIBES[state.vibe].label}`;
+        els.verdictLine.textContent = res.verdictLine;
+        els.verdictStamp.textContent = res.stampText;
+        els.stampRef.textContent = res.stampRef;
+        els.verdictStamp.className = `stamp ${res.tier}`;
+        if (state.lastTier !== res.tier || state.lastVibe !== state.vibe) {
+          state.lastTier = res.tier;
+          state.lastVibe = state.vibe;
+          els.verdictStamp.classList.add('pop');
+          setTimeout(() => els.verdictStamp.classList.remove('pop'), 190);
+        }
+
+        // Big financial readouts
+        els.netCashOut.textContent = fmtMoney(res.newNetCash);
+        els.netCashOut.className = `metric-value ${res.cashDelta >= -500 ? 'good' : (res.cashDeltaPct <= -18 || res.newNetCash <= 0 ? 'bad' : '')}`;
+        els.planCashOut.textContent = fmtMoney(res.baseProfit);
+
+        const pctRounded = Math.round(res.cashDeltaPct);
+        els.cashDeltaPct.textContent = `${pctRounded >= 0 ? '+' : ''}${pctRounded}%`;
+        els.cashDeltaPct.style.color = pctRounded >= 0 ? 'var(--forest)' : 'var(--vermilion)';
+
+        els.salesDeltaOut.textContent = fmtMoney(res.salesDelta, true);
+        els.salesDeltaOut.className = `metric-value ${res.salesDelta >= 0 ? 'good' : 'bad'}`;
+        els.ordersDeltaOut.textContent = `${res.ordersDelta >= 0 ? '+' : ''}${res.ordersDelta.toLocaleString()} orders`;
+
+        if (res.cashDelta >= 0) {
+          els.breakevenOut.textContent = 'Safe';
+          els.breakevenOut.className = 'metric-value good';
+          els.breakevenSub.textContent = `Ahead by ${fmtMoney(res.cashDelta, true)}`;
+        } else if (res.extraOrdersNeededPct >= 999) {
+          els.breakevenOut.textContent = 'Impossible';
+          els.breakevenOut.className = 'metric-value bad';
+          els.breakevenSub.textContent = 'Selling below cost per order';
+        } else {
+          els.breakevenOut.textContent = `+${Math.round(res.extraOrdersNeededPct)}%`;
+          els.breakevenOut.className = 'metric-value bad';
+          els.breakevenSub.textContent = 'Extra orders needed to break even';
+        }
+
+        // 100-shopper grid update
+        let idx = 0;
+        for (let i = 0; i < res.directBase && idx < 100; i++, idx++) dots[idx].className = 'dot direct';
+        for (let i = 0; i < res.paidCount && idx < 100; i++, idx++) dots[idx].className = 'dot paid';
+        for (let i = 0; i < res.botWon && idx < 100; i++, idx++) dots[idx].className = 'dot bot-won';
+        for (; idx < 100; idx++) dots[idx].className = 'dot bot-lost';
+
+        els.legDirect.textContent = res.directBase;
+        els.legPaid.textContent = res.paidCount;
+        els.legWon.textContent = res.botWon;
+        els.legLost.textContent = res.botLost;
+
+        if (res.stolenBonus > 0) {
+          els.crowdBonus.textContent = `+${res.stolenBonus} extra buyers stolen from slower rivals`;
+          els.crowdBonus.classList.add('show');
+        } else {
+          els.crowdBonus.classList.remove('show');
+        }
+
+        // Panic discount warning callout
+        if (state.panicDisc > 0) {
+          els.trapAlert.classList.add('show');
+          if (res.pureDiscBreakevenPct >= 999) {
+            els.trapAlert.innerHTML = `<strong>Panic-discount trap:</strong> Cutting prices by ${state.panicDisc}% when you only keep ${state.margin}% margin puts you below cost on every order. Volume cannot save it.`;
+          } else {
+            els.trapAlert.innerHTML = `<strong>Panic-discount trap:</strong> Cutting prices by ${state.panicDisc}% at a ${state.margin}% margin means you need <strong>+${Math.round(res.pureDiscBreakevenPct)}% more orders</strong> just to make the exact same gross profit dollar.`;
+          }
+        } else {
+          els.trapAlert.classList.remove('show');
+        }
+
+        // Rescued cash counter
+        const anyFix = state.fixes.feed || state.fixes.mix || state.fixes.bundle;
+        if (anyFix && rescuedCash > 100) {
+          els.rescuedPill.textContent = `+${fmtMoney(rescuedCash)} cash rescued`;
+          els.rescuedPill.style.color = 'var(--forest)';
+        } else if (anyFix) {
+          els.rescuedPill.textContent = 'Fixes active';
+          els.rescuedPill.style.color = 'var(--ink-muted)';
+        } else {
+          els.rescuedPill.textContent = 'Tap a lever to see cash rescued';
+          els.rescuedPill.style.color = 'var(--ink-muted)';
+        }
+      }
+
+      // Apply preset
+      function loadPreset(key) {
+        const p = PRESETS[key];
+        if (!p) return;
+        state.presetKey = key;
+        state.salesK = p.salesK;
+        state.aov = p.aov;
+        state.margin = p.margin;
+        state.adPct = p.adPct;
+        state.readiness = p.readiness;
+        state.aiShare = p.aiShare;
+        state.panicDisc = p.panicDisc;
+        state.fixes = { feed: false, mix: false, bundle: false };
+
+        els.salesSlider.value = p.salesK;
+        els.aovSlider.value = p.aov;
+        els.marginSlider.value = p.margin;
+        els.adSlider.value = p.adPct;
+        els.aiShareSlider.value = p.aiShare;
+
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.toggle('active', b.dataset.preset === key));
+        document.querySelectorAll('.seg-btn').forEach(b => b.classList.toggle('active', b.dataset.level === p.readiness));
+        document.querySelectorAll('.disc-btn').forEach(b => b.classList.toggle('active', Number(b.dataset.disc) === p.panicDisc));
+        document.querySelectorAll('.fix-card').forEach(b => b.classList.remove('active'));
+
+        render();
+      }
+
+      // Wire events
+      els.salesSlider.addEventListener('input', e => { state.salesK = Number(e.target.value); render(); });
+      els.aovSlider.addEventListener('input', e => { state.aov = Number(e.target.value); render(); });
+      els.marginSlider.addEventListener('input', e => { state.margin = Number(e.target.value); render(); });
+      els.adSlider.addEventListener('input', e => { state.adPct = Number(e.target.value); render(); });
+      els.aiShareSlider.addEventListener('input', e => { state.aiShare = Number(e.target.value); render(); });
+
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => loadPreset(btn.dataset.preset));
+      });
+
+      document.querySelectorAll('.curr-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.curr = btn.dataset.curr;
+          document.querySelectorAll('.curr-btn').forEach(b => b.classList.toggle('active', b === btn));
+          render();
+        });
+      });
+
+      document.querySelectorAll('.vibe-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.vibe = btn.dataset.vibe;
+          document.querySelectorAll('.vibe-btn').forEach(b => b.classList.toggle('active', b === btn));
+          render();
+        });
+      });
+
+      document.querySelectorAll('.seg-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.readiness = btn.dataset.level;
+          document.querySelectorAll('.seg-btn').forEach(b => b.classList.toggle('active', b === btn));
+          render();
+        });
+      });
+
+      document.querySelectorAll('.disc-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.panicDisc = Number(btn.dataset.disc);
+          document.querySelectorAll('.disc-btn').forEach(b => b.classList.toggle('active', b === btn));
+          render();
+        });
+      });
+
+      document.querySelectorAll('.fix-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const k = card.dataset.fix;
+          state.fixes[k] = !state.fixes[k];
+          card.classList.toggle('active', state.fixes[k]);
+          render();
+        });
+      });
+
+      document.getElementById('resetBtn').addEventListener('click', () => loadPreset(state.presetKey));
+
+      // Copy 3-line summary
+      document.getElementById('copySummaryBtn').addEventListener('click', async () => {
+        const res = simulate();
+        const presetName = PRESETS[state.presetKey].name;
+        const readinessLabel = state.readiness === 'blind' ? 'Blind' : (state.readiness === 'half' ? 'Half-Ready' : 'Bot-Ready');
+        const pct = Math.round(res.cashDeltaPct);
+        const text = [
+          `Black Friday AI Arena (${presetName}) -> Verdict: ${res.stampText}`,
+          `With ${state.aiShare}% of shoppers asking AI bots (Store status: ${readinessLabel}), weekend cash left in the bank moves from ${fmtMoney(res.baseProfit)} to ${fmtMoney(res.newNetCash)} (${pct >= 0 ? '+' : ''}${pct}%).`,
+          `Run your own store numbers: https://shreydeepum.github.io/operator-tools/black-friday-ai-arena/`
+        ].join('\n');
+
+        try {
+          await navigator.clipboard.writeText(text);
+          els.actionFeedback.textContent = 'Copied 3-line summary to clipboard.';
+        } catch (err) {
+          els.actionFeedback.textContent = 'Clipboard blocked — select & copy manually.';
+        }
+        setTimeout(() => {
+          els.actionFeedback.textContent = 'Drop the card straight into Slack, WhatsApp, or LinkedIn.';
+        }, 3000);
+      });
+
+      // 1-Click Editorial Snapshot PNG Generator (Pure HTML5 Canvas)
+      function drawSnapshotPng() {
+        const res = simulate();
+        const canvas = els.cardCanvas;
+        const ctx = canvas.getContext('2d');
+        const W = 1200, H = 675;
+
+        // Paper ground
+        ctx.fillStyle = '#FAF7F2';
+        ctx.fillRect(0, 0, W, H);
+
+        // Outer editorial hairline frame
+        ctx.strokeStyle = '#DDD5C8';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(24, 24, W - 48, H - 48);
+
+        // Top vermilion accent rule
+        ctx.fillStyle = '#C8402C';
+        ctx.fillRect(24, 24, W - 48, 6);
+
+        // Masthead: SD monogram + shreydeepum
+        ctx.fillStyle = '#161513';
+        ctx.fillRect(58, 56, 38, 38);
+        ctx.fillStyle = '#C8402C';
+        ctx.fillRect(58, 90, 38, 4);
+        ctx.fillStyle = '#FAF7F2';
+        ctx.font = '700 18px Georgia, serif';
+        ctx.fillText('SD', 65, 82);
+
+        ctx.fillStyle = '#161513';
+        ctx.font = '600 17px "IBM Plex Mono", monospace';
+        ctx.fillText('shreydeepum', 110, 81);
+
+        ctx.fillStyle = '#6A645B';
+        ctx.font = '600 14px "IBM Plex Mono", monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText('DROP 01 · THE BLACK FRIDAY AI ARENA', W - 58, 80);
+        ctx.textAlign = 'left';
+
+        // Divider
+        ctx.strokeStyle = '#E4DDD2';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(58, 114);
+        ctx.lineTo(W - 58, 114);
+        ctx.stroke();
+
+        // Scenario Headline
+        const presetName = PRESETS[state.presetKey].name;
+        const readinessLabel = state.readiness === 'blind' ? 'Bot-Blind' : (state.readiness === 'half' ? 'Half-Ready' : 'Bot-Ready');
+        ctx.fillStyle = '#C8402C';
+        ctx.font = '600 13px "IBM Plex Mono", monospace';
+        ctx.fillText(`${presetName.toUpperCase()}  ·  ${state.aiShare}% SHOPPERS ASKING AI BOTS  ·  ${readinessLabel.toUpperCase()}`, 58, 152);
+
+        ctx.fillStyle = '#161513';
+        ctx.font = '600 42px Georgia, serif';
+        ctx.fillText('Weekend Stress-Test Scorecard', 58, 204);
+
+        // Stamp badge on right
+        const stampColors = {
+          victor: { bg: '#ECF6F1', fg: '#1A6B4A' },
+          bruised: { bg: '#FCF5E8', fg: '#B07212' },
+          tribute: { bg: '#FDF1EE', fg: '#C8402C' },
+          cannon: { bg: '#9E2616', fg: '#FFFFFF' }
+        }[res.tier];
+
+        ctx.save();
+        ctx.font = '700 17px "IBM Plex Mono", monospace';
+        const tw = ctx.measureText(res.stampText).width;
+        const bw = tw + 34;
+        const bh = 46;
+        ctx.translate(W - 58 - bw / 2, 184);
+        ctx.rotate(-0.032);
+        ctx.fillStyle = stampColors.bg;
+        ctx.fillRect(-bw / 2, -bh / 2, bw, bh);
+        ctx.strokeStyle = stampColors.fg;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(-bw / 2, -bh / 2, bw, bh);
+        ctx.fillStyle = stampColors.fg;
+        ctx.textAlign = 'center';
+        ctx.fillText(res.stampText, 0, 6);
+        ctx.restore();
+        ctx.fillStyle = '#6A645B';
+        ctx.font = '600 11px "IBM Plex Mono", monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText(res.stampRef.toUpperCase(), W - 58, 224);
+        ctx.textAlign = 'left';
+
+        // 3 Metric Cards
+        const cards = [
+          {
+            label: 'CASH LEFT IN BANK',
+            value: fmtMoney(res.newNetCash),
+            sub: `Planned: ${fmtMoney(res.baseProfit)} (${Math.round(res.cashDeltaPct) >= 0 ? '+' : ''}${Math.round(res.cashDeltaPct)}%)`,
+            color: res.cashDelta >= 0 ? '#1A6B4A' : '#C8402C',
+            highlight: true
+          },
+          {
+            label: 'SALES VS. PLAN',
+            value: fmtMoney(res.salesDelta, true),
+            sub: `${res.ordersDelta >= 0 ? '+' : ''}${res.ordersDelta.toLocaleString()} orders`,
+            color: res.salesDelta >= 0 ? '#1A6B4A' : '#C8402C',
+            highlight: false
+          },
+          {
+            label: 'TO STAY EVEN',
+            value: res.cashDelta >= 0 ? 'SAFE' : (res.extraOrdersNeededPct >= 999 ? 'BELOW COST' : `+${Math.round(res.extraOrdersNeededPct)}%`),
+            sub: res.cashDelta >= 0 ? `Ahead by ${fmtMoney(res.cashDelta, true)}` : 'Extra orders required',
+            color: res.cashDelta >= 0 ? '#1A6B4A' : '#161513',
+            highlight: false
+          }
+        ];
+
+        const cardW = 344;
+        const cardH = 152;
+        const gap = 26;
+        const startY = 244;
+
+        cards.forEach((c, i) => {
+          const x = 58 + i * (cardW + gap);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(x, startY, cardW, cardH);
+          ctx.strokeStyle = c.highlight ? '#161513' : '#E4DDD2';
+          ctx.lineWidth = c.highlight ? 2 : 1.5;
+          ctx.strokeRect(x, startY, cardW, cardH);
+          if (c.highlight) {
+            ctx.fillStyle = '#161513';
+            ctx.fillRect(x, startY, cardW, 5);
+          }
+
+          ctx.fillStyle = '#6A645B';
+          ctx.font = '600 13px "IBM Plex Mono", monospace';
+          ctx.fillText(c.label, x + 22, startY + 38);
+
+          ctx.fillStyle = c.color;
+          ctx.font = '700 40px "IBM Plex Mono", monospace';
+          ctx.fillText(c.value, x + 22, startY + 94);
+
+          ctx.fillStyle = '#5C574F';
+          ctx.font = '500 15px Inter, sans-serif';
+          ctx.fillText(c.sub, x + 22, startY + 128);
+        });
+
+        // 100-Shopper Visual Bar
+        const barY = 434;
+        ctx.fillStyle = '#161513';
+        ctx.font = '600 16px Inter, sans-serif';
+        ctx.fillText('Out of every 100 weekend shoppers:', 58, barY);
+
+        const barW = W - 116;
+        const segs = [
+          { count: res.directBase, color: '#262421', name: `Direct ${res.directBase}` },
+          { count: res.paidCount, color: '#A7A095', name: `Ads ${res.paidCount}` },
+          { count: res.botWon, color: '#1A6B4A', name: `Bot picked you ${res.botWon}` },
+          { count: res.botLost, color: '#C8402C', name: `Bot sent to rival ${res.botLost}` }
+        ];
+
+        let curX = 58;
+        segs.forEach(seg => {
+          const sw = (seg.count / 100) * barW;
+          if (sw > 0) {
+            ctx.fillStyle = seg.color;
+            ctx.fillRect(curX, barY + 18, sw - 2, 34);
+            curX += sw;
+          }
+        });
+
+        // Legend under bar
+        let legX = 58;
+        ctx.font = '600 14px "IBM Plex Mono", monospace';
+        segs.forEach(seg => {
+          ctx.fillStyle = seg.color;
+          ctx.fillRect(legX, barY + 68, 12, 12);
+          ctx.fillStyle = '#3D3A35';
+          ctx.fillText(seg.name, legX + 18, barY + 79);
+          legX += ctx.measureText(seg.name).width + 48;
+        });
+
+        // Verdict quote
+        ctx.fillStyle = '#3D3A35';
+        ctx.font = 'italic 20px Georgia, serif';
+        ctx.fillText(`"${res.verdictLine}"`, 58, 566);
+
+        // Footer bar
+        ctx.strokeStyle = '#E4DDD2';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(58, 594);
+        ctx.lineTo(W - 58, 594);
+        ctx.stroke();
+
+        ctx.fillStyle = '#6A645B';
+        ctx.font = '500 14px "IBM Plex Mono", monospace';
+        ctx.fillText('Run your own numbers -> shreydeepum.github.io/operator-tools/black-friday-ai-arena/', 58, 626);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#161513';
+        ctx.fillText('linkedin.com/in/shreydeepum', W - 58, 626);
+
+        const link = document.createElement('a');
+        link.download = `black-friday-ai-arena-${state.presetKey}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        els.actionFeedback.textContent = 'Snapshot PNG saved!';
+        setTimeout(() => {
+          els.actionFeedback.textContent = 'Drop the card straight into Slack, WhatsApp, or LinkedIn.';
+        }, 3000);
+      }
+
+      document.getElementById('downloadPngBtn').addEventListener('click', drawSnapshotPng);
+
+      // Initial render
+      loadPreset('skincare');
+    })();
+  </script>
+</body>
+</html>
